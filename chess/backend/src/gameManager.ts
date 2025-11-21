@@ -1,22 +1,49 @@
 import type { WebSocket } from "ws";
-import type { Game } from "./game.js";
+import { Game } from "./game.js";
+import { INIT_GAME,MOVE } from "./messages.js";
 
 export class GameManager {
   private games: Game[];
+  private pendingUser:WebSocket |null;
+  private users:WebSocket[];
 
   constructor() {
     this.games = [];
+    this.pendingUser= null;
+    this.users=[];
   }
 
-  addUser(socket: WebSocket): void {
-    
+  addUser(socket: WebSocket) {
+    this.users.push(socket)
+    this.addhandler(socket)
   }
 
   removeUser(socket: WebSocket): void {
-    
+    this.users = this.users.filter(user=> user!==socket )
+    //stop the game 
   }
 
-  private handleMessage(socket: WebSocket, data: WebSocket.Data): void {
+  private addhandler(socket: WebSocket) {
+    socket.on("message", (data)=> {
+      const message = JSON.parse(data.toString());
+
+      if(message.type ==INIT_GAME){
+        if(this.pendingUser){
+            const game = new Game(this.pendingUser, socket);
+            this.games.push(game);
+            this.pendingUser= null;
+        }else{
+          this.pendingUser=socket;
+        }
+      }
+      if(message.type=== MOVE){
+        const game = this.games.find(game => game.player1 ===socket || game.player2 ===socket);
+        if(game){
+          game.makeMove(socket, message.move)
+        }
+      }
+
+    })
 
   }
 }
