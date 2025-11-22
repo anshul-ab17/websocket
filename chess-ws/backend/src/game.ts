@@ -45,7 +45,6 @@ export class Game {
 
         try{
             this.board.move(move);
-            this.moveCount++;
         }catch(e){
             console.log(e);
             return;
