@@ -1,8 +1,22 @@
-export const Button = ({onClick,children}:{onClick:()=> void, children:React.ReactNode }) => {
-    return(
-        <button onClick={onClick}
-            className="rounded-3xl bg-green-900 px-4 py-2 text-amber-50 text-3xl font-bold hover:bg-amber-950">
-                {children}
-        </button>
-    )
-}
+
+import React from "react";
+
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: React.ReactNode;
+};
+
+export const Button: React.FC<Props> = ({ children, className = "", ...rest }) => {
+  return (
+    <button
+      {...rest}
+      className={
+        `inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-lg font-semibold transition-shadow focus:outline-none focus:ring-2 focus:ring-amber-400
+         bg-amber-500 hover:bg-amber-600 text-slate-900 shadow-md ` + className
+      }
+    >
+      {children}
+    </button>
+  );
+};
+
+export default Button;
