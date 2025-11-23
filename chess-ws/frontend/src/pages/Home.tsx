@@ -1,3 +1,4 @@
+ 
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
@@ -19,13 +20,10 @@ export const Home: React.FC = () => {
 
           <div className="text-center md:text-left">
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">
-              Play Chess — Online & Fast
-            </h1>
-            <p className="text-slate-300 mb-6">
-              Quick matches, responsive board, and smooth controls. Play with friends or an AI.
-            </p>
+              Play Chess | Online
+            </h1> 
 
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 justify-center md:justify-start">
+            <div className="p-4 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 justify-center md:justify-start">
               <Button onClick={() => navigate("/game")}>Start a Game</Button>
               <Button
                 onClick={() => alert("How to play: move pieces by clicking or tapping on source then destination.")}
@@ -33,11 +31,7 @@ export const Home: React.FC = () => {
               >
                 How to play
               </Button>
-            </div>
-
-            <div className="mt-6 text-sm text-slate-400">
-              Tip: resize the browser to see the responsive layout.
-            </div>
+            </div> 
           </div>
         </div>
       </div>
